@@ -23,6 +23,7 @@ int led = 13;
 
 void setup() {
   pinMode(led, OUTPUT);
+  Serial.begin(9600);
   // start the Ethernet and UDP:
   Ethernet.begin(mac,ip);
   Udp.begin(localPort);
@@ -34,11 +35,14 @@ void loop() {
   if(sensorValue<400) {
     digitalWrite(13, HIGH);   // set the LED on
     SensorString = String("Low Light, less than value 400. Value: " + val);
+    Serial.print("Low Light, less than value 400. Value: " + val+"\n");
   }
   else { 
     digitalWrite(13, LOW);   // set the LED on
     SensorString = String("High Light, more than value 400. Value: " + val);
+    Serial.print("High Light, more than value 400. Value: " + val+"\n");
   }
+  delay(1000);
   // String SensorString = String(sensorValue);
   SensorString.toCharArray(ReplyBuffer,45);
   // if there's data available, read a packet
